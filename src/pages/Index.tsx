@@ -17,11 +17,6 @@ const Index = () => {
           </p>
         </div>
 
-        {/* Mood */}
-        <div className="mb-8">
-          <MoodSelector />
-        </div>
-
         {/* Tips */}
         <div>
           <h2 className="text-base font-semibold text-foreground mb-4">
