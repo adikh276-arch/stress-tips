@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import TipDetail from "./pages/TipDetail";
 import NotFound from "./pages/NotFound";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import "./i18n";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +16,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <LanguageSelector />
       <BrowserRouter basename="/stress_tips">
         <Routes>
           <Route path="/" element={<Index />} />
