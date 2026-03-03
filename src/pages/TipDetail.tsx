@@ -3,16 +3,18 @@ import { ArrowLeft, Check } from "lucide-react";
 import { tips } from "@/data/tips";
 import BreathingExercise from "@/components/BreathingExercise";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 const TipDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const tip = tips.find((t) => t.slug === slug);
 
   if (!tip) {
     return (
       <div className="min-h-screen gradient-main flex items-center justify-center">
-        <p className="text-muted-foreground">Tip not found.</p>
+        <p className="text-muted-foreground">{t('detail.notFound')}</p>
       </div>
     );
   }
@@ -26,13 +28,13 @@ const TipDetail = () => {
           className="flex items-center gap-2 text-muted-foreground mb-6 transition-colors hover:text-foreground"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">{t('detail.back')}</span>
         </button>
 
         {/* Icon + Title */}
         <div className="flex items-center gap-3 mb-6">
           <div className={`pastel-icon ${tip.iconClass}`}>{tip.icon}</div>
-          <h1 className="text-xl font-bold text-foreground">{tip.title}</h1>
+          <h1 className="text-xl font-bold text-foreground">{t(`tip.${tip.slug}.title`)}</h1>
         </div>
 
         {/* Breathing animation */}
@@ -45,20 +47,20 @@ const TipDetail = () => {
         {/* Why It Helps */}
         <div className="wellness-card mb-4">
           <h2 className="text-sm font-semibold text-foreground mb-2">
-            Why It Helps
+            {t('detail.whyTitle')}
           </h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            {tip.whyItHelps}
+            {t(`tip.${tip.slug}.why`)}
           </p>
         </div>
 
         {/* What You Can Do */}
         <div className="wellness-card mb-6">
           <h2 className="text-sm font-semibold text-foreground mb-3">
-            What You Can Do
+            {t('detail.doTitle')}
           </h2>
           <ul className="space-y-3">
-            {tip.whatYouCanDo.map((item, i) => (
+            {(t(`tip.${tip.slug}.do`, { returnObjects: true }) as string[])?.map((item, i) => (
               <li key={i} className="flex items-start gap-3">
                 <div className="w-5 h-5 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Check className="w-3 h-3 text-primary" />
@@ -70,12 +72,12 @@ const TipDetail = () => {
         </div>
 
         {/* CTA Button */}
-        {tip.buttonLabel && (
+        {t(`tip.${tip.slug}.button`) && (
           <button
-            onClick={() => toast.success("Reminder set! 🌙")}
+            onClick={() => toast.success(t('detail.reminderSet'))}
             className="w-full py-3.5 rounded-full bg-primary text-primary-foreground font-semibold text-sm shadow-soft transition-all duration-200 active:scale-[0.97]"
           >
-            {tip.buttonLabel}
+            {t(`tip.${tip.slug}.button`)}
           </button>
         )}
       </div>

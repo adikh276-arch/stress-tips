@@ -35,6 +35,9 @@ export const LanguageSelector = () => {
     const { i18n } = useTranslation();
 
     const changeLanguage = (lng: string) => {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lng);
+        window.history.pushState({}, '', url);
         i18n.changeLanguage(lng);
     };
 
